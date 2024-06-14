@@ -11,6 +11,10 @@ $auth      = $pem->selectWhere("table_user", "username", $_SESSION['username']);
 $sql2      = "SELECT COUNT(kd_pretransaksi) as count FROM table_pretransaksi WHERE kd_transaksi = '$transkode'";
 $exec2     = mysqli_query($con, $sql2);
 $assoc2    = mysqli_fetch_assoc($exec2);
+
+// get nama_ketua from url
+$nama_ketua = $_GET['nama_ketua'];
+
 if ($assoc2['count'] <= 0) {
 	header("location:PageKasir.php?page=kasirTransaksi");
 }
@@ -26,7 +30,7 @@ if ($bayar == "" || $kem == "") {
 	} else {
 		$date  = date("Y-m-d");
 		$value = "'$transkode','$auth[kd_user]','$assoc1[jum]','$assoc[sub]','$date'";
-		$response = $pem->insert("table_transaksi", $value, "?page=struk&id=$transkode");
+		$response = $pem->insert("table_transaksi", $value, "?page=struk&id=$transkode&nama_ketua=$nama_ketua");
 		if ($response['response'] == "positive") {
 			unset($_SESSION['transaksi']);
 		}

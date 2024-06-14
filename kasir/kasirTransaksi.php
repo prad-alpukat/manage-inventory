@@ -158,7 +158,7 @@ if ($result_ketua) {
                         </div>
                         <div class="card-body">
                             <?php if ($assoc2['count'] > 0 || isset($_POST['btnAdd'])) : ?>
-                                <a class="btn btn-success" id="pembayaran" href="?page=kasirPembayaran">Lanjutkan ke pembayaran <i class="fa fa-cart-arrow-down"></i></a>
+                                <button id="toPayment" type="button" class="btn btn-success" id="pembayaran">Lanjutkan ke pembayaran <i class="fa fa-cart-arrow-down"></i></button>
                             <?php endif ?>
                             <br><br>
                             <?php
@@ -301,6 +301,13 @@ if ($result_ketua) {
             var total = $('#tot').val();
             var kembalian = bayar - total;
             $('#kem').val(kembalian);
+        })
+
+        $("#toPayment").click(function() {
+            // get the value of the selected nama ketua
+            var nama_ketua = $("select[name='nama_ketua']").val();
+            // redirect to the payment page with the selected nama ketua
+            window.location.href = "?page=kasirPembayaran&nama_ketua=" + nama_ketua;
         })
     })
 </script>
